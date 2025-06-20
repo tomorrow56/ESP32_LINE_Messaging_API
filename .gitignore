@@ -39,6 +39,7 @@ build/
 # 依存関係
 .dep/
 
-# README.md以外のMarkdownファイルを除外
+# Allow specific Markdown files
 *.md
 !README.md
+!README_en.md
