@@ -1,0 +1,44 @@
+# Mac OS生成ファイル
+._*
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# サムネイルファイル
+._*
+
+# 外部ディスクのルートに作成される可能性のあるファイル
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# リモートAFPで共有するディレクトリに作成される可能性のあるファイル
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Arduino IDE関連の一時ファイル
+*.o
+*.a
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+
+# ビルド関連
+build/
+
+# 依存関係
+.dep/
+
+# README.md以外のMarkdownファイルを除外
+*.md
+!README.md
