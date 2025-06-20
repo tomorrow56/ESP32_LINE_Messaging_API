@@ -42,4 +42,4 @@ build/
 # Allow specific Markdown files
 *.md
 !README.md
-!README_en.md
+!README_jp.md

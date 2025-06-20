@@ -1,104 +1,107 @@
-# ESP32 LINE Messaging API ライブラリ使用方法
+# ESP32 LINE Messaging API Library
 
-## 概要
-このライブラリは、ESP32を使用してLINE Messaging APIでメッセージを送信するためのものです。
-SPRESENSE_ESP8266_LINE_Messaging_APIライブラリとの互換性を持ちながら、ESP32のネイティブWiFi機能を活用しています。
+## Overview
+This library enables sending messages through the LINE Messaging API using ESP32. It's designed to be compatible with the SPRESENSE_ESP8266_LINE_Messaging_API library while utilizing ESP32's native WiFi capabilities.
 
-## インストール方法
-1. このライブラリをダウンロードし、ZIP形式で保存します
-2. Arduino IDEを開き、「スケッチ」→「ライブラリをインクルード」→「.ZIP形式のライブラリをインストール」を選択
-3. ダウンロードしたZIPファイルを選択してインストール
+## Installation
+1. Download this library and save it as a ZIP file
+2. Open Arduino IDE, go to "Sketch" → "Include Library" → "Add .ZIP Library..."
+3. Select the downloaded ZIP file to install
 
-## 使用方法
-
-### 基本的な使い方
+## Basic Usage
 ```cpp
 #include "ESP32LineMessenger.h"
 
-// WiFiとLINEの設定
+// WiFi and LINE configuration
 const char* ssid = "your_wifi_ssid";
 const char* password = "your_wifi_password";
 const char* accessToken = "your_line_access_token";
 
-// ライブラリインスタンス作成
+// Create library instance
 ESP32LineMessenger line;
 
 void setup() {
   Serial.begin(115200);
   
-  // アクセストークン設定
+  // Set access token
   line.setAccessToken(accessToken);
   
-  // WiFi接続
+  // Connect to WiFi
   if (line.connectWiFi(ssid, password, true)) {
-    // メッセージ送信
+    // Send message
     line.sendMessage("Hello from ESP32!", true);
   }
 }
 
 void loop() {
-  // 必要に応じて追加の処理
+  // Additional code if needed
 }
 ```
 
-### 主要関数
+## Key Functions
 
-#### コンストラクタ
+### Constructors
 ```cpp
-ESP32LineMessenger();  // 基本コンストラクタ
-ESP32LineMessenger(const char* token);  // アクセストークン付きコンストラクタ
+ESP32LineMessenger();  // Basic constructor
+ESP32LineMessenger(const char* token);  // Constructor with access token
 ```
 
-#### アクセストークン設定
+### Set Access Token
 ```cpp
 void setAccessToken(const char* token);
 ```
 
-#### WiFi接続
+### Connect to WiFi
 ```cpp
 bool connectWiFi(const char* ssid, const char* password, bool showConnect = true);
 ```
-- `ssid`: WiFiのSSID
-- `password`: WiFiのパスワード
-- `showConnect`: 接続状況をシリアルに表示するかどうか
-- 戻り値: 接続成功でtrue、失敗でfalse
+- `ssid`: WiFi SSID
+- `password`: WiFi password
+- `showConnect`: Whether to show connection status on serial (default: true)
+- Returns: `true` on success, `false` on failure
 
-#### メッセージ送信
+### Send Message
 ```cpp
 bool sendMessage(const char* message, bool showSend = true);
 ```
-- `message`: 送信するメッセージ
-- `showSend`: 送信状況をシリアルに表示するかどうか
-- 戻り値: 送信成功でtrue、失敗でfalse
+- `message`: Message to send
+- `showSend`: Whether to show send status on serial (default: true)
+- Returns: `true` on success, `false` on failure
 
-#### 拡張機能
+### Additional Features
 ```cpp
-bool isWiFiConnected();  // WiFi接続状態確認
-void setDebug(bool debug);  // デバッグモード設定
+bool isWiFiConnected();  // Check WiFi connection status
+void setDebug(bool debug);  // Enable/disable debug mode
 ```
 
-## LINE Messaging APIの設定方法
-1. [LINE Developers](https://developers.line.biz/)にアクセス
-2. 新規プロバイダーを作成
-3. Messaging APIチャネルを作成
-4. チャネルアクセストークン（長期）を発行
-5. 発行したトークンをプログラムに設定
+## LINE Messaging API Setup
+1. Go to [LINE Developers](https://developers.line.biz/)
+2. Create a new provider
+3. Create a Messaging API channel
+4. Issue a long-lived channel access token
+5. Set the token in your program
 
-## サンプルスケッチ
-- `ESP32_LINE_Basic`: 基本的な使い方のサンプル
-- `ESP32_LINE_Advanced`: 定期送信やボタン入力による送信のサンプル
+## Example Sketches
+- `ESP32_LINE_Basic`: Basic usage example
+- `ESP32_LINE_Advanced`: Example with scheduled messages and button-triggered sending
 
-## 注意事項
-- このライブラリはESP32専用です
-- SSL証明書の検証は無効化されています（本番環境では適切な証明書を使用することを推奨）
-- LINE Messaging APIの利用には、LINEの利用規約に従ってください
+## Notes
+- This library is specifically designed for ESP32
+- SSL certificate verification is disabled (recommended to use proper certificates in production)
+- Usage of LINE Messaging API is subject to LINE's Terms of Use
 
-## 参照ライブラリとの違い
-- クラス名が`LineMessenger`から`ESP32LineMessenger`に変更
-- ESP8266のATコマンド方式からESP32のネイティブWiFiライブラリを使用
-- 拡張機能としてWiFi接続状態確認やデバッグモード設定を追加
+## Differences from Reference Library
+- Class name changed from `LineMessenger` to `ESP32LineMessenger`
+- Uses ESP32's native WiFi library instead of ESP8266's AT commands
+- Added features like WiFi connection status check and debug mode
 
-## トラブルシューティング
-- WiFi接続に失敗する場合は、SSIDとパスワードを確認
-- メッセージ送信に失敗する場合は、アクセストークンの有効性を確認
-- デバッグモードを有効にすると、詳細なエラー情報が表示されます
+## Troubleshooting
+- If WiFi connection fails, verify SSID and password
+- If message sending fails, check the validity of your access token
+- Enable debug mode for detailed error information
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
